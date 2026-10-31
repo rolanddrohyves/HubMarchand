@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1050" viewBox="0 0 1500 1050">
+  <style>
+    text { font-family: Arial, sans-serif; fill: #263238; }
+    .box { stroke: #455a64; stroke-width: 2; fill: #dcebbd; }
+    .title { font-size: 20px; font-weight: bold; }
+    .field { font-size: 17px; }
+    .rel { stroke: #455a64; stroke-width: 2; fill: none; }
+    .label { font-size: 15px; }
+  </style>
+  <text x="750" y="35" text-anchor="middle" font-size="28" font-weight="bold">Diagramme de classes — HubMarchand</text>
+  <rect class="box" x="45" y="90" width="265" height="175"/><rect class="box" x="45" y="90" width="265" height="42" fill="#c7dda0"/>
+  <text class="title" x="177" y="118" text-anchor="middle">User</text><text class="field" x="65" y="160">+ id : bigint</text><text class="field" x="65" y="188">+ name : string</text><text class="field" x="65" y="216">+ email : string</text><text class="field" x="65" y="244">+ rôle : string</text>
+  <rect class="box" x="370" y="90" width="300" height="205"/><rect class="box" x="370" y="90" width="300" height="42" fill="#c7dda0"/>
+  <text class="title" x="520" y="118" text-anchor="middle">Store</text><text class="field" x="390" y="160">+ id : bigint</text><text class="field" x="390" y="188">+ name : string</text><text class="field" x="390" y="216">+ status : string</text><text class="field" x="390" y="244">+ subscription_ends_at : date</text><text class="field" x="390" y="272">+ enabled_modules : json</text>
+  <rect class="box" x="755" y="90" width="300" height="177"/><rect class="box" x="755" y="90" width="300" height="42" fill="#c7dda0"/>
+  <text class="title" x="905" y="118" text-anchor="middle">SubscriptionPlan</text><text class="field" x="775" y="160">+ id : bigint</text><text class="field" x="775" y="188">+ name : string</text><text class="field" x="775" y="216">+ product_limit : integer</text><text class="field" x="775" y="244">+ included_modules : json</text>
+  <rect class="box" x="1125" y="90" width="300" height="177"/><rect class="box" x="1125" y="90" width="300" height="42" fill="#c7dda0"/>
+  <text class="title" x="1275" y="118" text-anchor="middle">Product</text><text class="field" x="1145" y="160">+ id : bigint</text><text class="field" x="1145" y="188">+ name : string</text><text class="field" x="1145" y="216">+ sku : string</text><text class="field" x="1145" y="244">+ stock_quantity : integer</text>
+
+  <rect class="box" x="100" y="450" width="300" height="177"/><rect class="box" x="100" y="450" width="300" height="42" fill="#c7dda0"/>
+  <text class="title" x="250" y="478" text-anchor="middle">Customer</text><text class="field" x="120" y="520">+ id : bigint</text><text class="field" x="120" y="548">+ name : string</text><text class="field" x="120" y="576">+ email : string</text><text class="field" x="120" y="604">+ phone : string</text>
+  <rect class="box" x="520" y="430" width="330" height="235"/><rect class="box" x="520" y="430" width="330" height="42" fill="#c7dda0"/>
+  <text class="title" x="685" y="458" text-anchor="middle">SalesOrder</text><text class="field" x="540" y="500">+ id : bigint</text><text class="field" x="540" y="528">+ reference : string</text><text class="field" x="540" y="556">+ status : string</text><text class="field" x="540" y="584">+ total_amount : decimal</text><text class="field" x="540" y="612">+ source : string</text><text class="field" x="540" y="640">+ created_at : datetime</text>
+  <rect class="box" x="1010" y="450" width="330" height="205"/><rect class="box" x="1010" y="450" width="330" height="42" fill="#c7dda0"/>
+  <text class="title" x="1175" y="478" text-anchor="middle">SalesOrderItem</text><text class="field" x="1030" y="520">+ id : bigint</text><text class="field" x="1030" y="548">+ quantity : integer</text><text class="field" x="1030" y="576">+ unit_price : decimal</text><text class="field" x="1030" y="604">+ product_id : bigint</text><text class="field" x="1030" y="632">+ order_id : bigint</text>
+  <rect class="box" x="520" y="820" width="330" height="177"/><rect class="box" x="520" y="820" width="330" height="42" fill="#c7dda0"/>
+  <text class="title" x="685" y="848" text-anchor="middle">StockMovement</text><text class="field" x="540" y="890">+ id : bigint</text><text class="field" x="540" y="918">+ type : string</text><text class="field" x="540" y="946">+ quantity : integer</text><text class="field" x="540" y="974">+ reason : string</text>
+
+  <path class="rel" d="M310 175 L370 175M670 175 L755 175M1055 175 L1125 175M520 295 L300 450M520 295 L670 430M520 295 L1175 450M400 538 L520 538M850 545 L1010 545M1175 655 L685 820"/>
+  <g class="label"><text x="330" y="165">1</text><text x="340" y="195">*</text><text x="700" y="165">1</text><text x="710" y="195">0..1</text><text x="1070" y="165">1</text><text x="1080" y="195">*</text><text x="410" y="330">1</text><text x="450" y="350">*</text><text x="435" y="530">1</text><text x="470" y="520">*</text><text x="875" y="530">1</text><text x="940" y="520">*</text><text x="1100" y="760">1</text><text x="1080" y="790">*</text></g>
+</svg>

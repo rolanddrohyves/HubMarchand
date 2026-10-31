@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="980" viewBox="0 0 1500 980">
+  <style>
+    text { font-family: Arial, sans-serif; fill: #222; }
+    .actor { stroke: #222; stroke-width: 3; fill: none; }
+    .usecase { stroke: #222; stroke-width: 2; fill: #fff; }
+    .link { stroke: #222; stroke-width: 2; fill: none; }
+    .system { stroke: #222; stroke-width: 2; fill: none; }
+  </style>
+  <text x="750" y="42" text-anchor="middle" font-size="28" font-weight="bold">Diagramme de cas d'utilisation — HubMarchand</text>
+  <rect class="system" x="300" y="75" width="900" height="850" rx="4"/>
+  <text x="325" y="108" font-size="22" font-weight="bold">Plateforme HubMarchand</text>
+
+  <g transform="translate(110 170)">
+    <circle class="actor" cx="0" cy="0" r="17"/><path class="actor" d="M0 17v58m-30-38h60m-22 38-18 48m40-48 18 48"/>
+    <text x="0" y="145" text-anchor="middle" font-size="22">Visiteur</text>
+  </g>
+  <g transform="translate(110 555)">
+    <circle class="actor" cx="0" cy="0" r="17"/><path class="actor" d="M0 17v58m-30-38h60m-22 38-18 48m40-48 18 48"/>
+    <text x="0" y="145" text-anchor="middle" font-size="22">Marchand</text>
+  </g>
+  <g transform="translate(1375 340)">
+    <circle class="actor" cx="0" cy="0" r="17"/><path class="actor" d="M0 17v58m-30-38h60m-22 38-18 48m40-48 18 48"/>
+    <text x="0" y="145" text-anchor="middle" font-size="22">Super Admin</text>
+  </g>
+  <g transform="translate(1375 700)">
+    <circle class="actor" cx="0" cy="0" r="17"/><path class="actor" d="M0 17v58m-30-38h60m-22 38-18 48m40-48 18 48"/>
+    <text x="0" y="145" text-anchor="middle" font-size="22">Membre d'équipe</text>
+  </g>
+
+  <g font-size="19" text-anchor="middle">
+    <ellipse class="usecase" cx="520" cy="180" rx="150" ry="38"/><text x="520" y="187">Consulter la boutique</text>
+    <ellipse class="usecase" cx="850" cy="180" rx="150" ry="38"/><text x="850" y="187">Créer une commande</text>
+    <ellipse class="usecase" cx="520" cy="300" rx="150" ry="38"/><text x="520" y="307">S'authentifier</text>
+    <ellipse class="usecase" cx="850" cy="300" rx="150" ry="38"/><text x="850" y="307">Gérer les produits</text>
+    <ellipse class="usecase" cx="520" cy="420" rx="150" ry="38"/><text x="520" y="427">Gérer les stocks</text>
+    <ellipse class="usecase" cx="850" cy="420" rx="150" ry="38"/><text x="850" y="427">Gérer les ventes</text>
+    <ellipse class="usecase" cx="520" cy="540" rx="150" ry="38"/><text x="520" y="547">Gérer les clients</text>
+    <ellipse class="usecase" cx="850" cy="540" rx="150" ry="38"/><text x="850" y="547">Suivre les livraisons</text>
+    <ellipse class="usecase" cx="520" cy="660" rx="150" ry="38"/><text x="520" y="667">Exporter les données</text>
+    <ellipse class="usecase" cx="850" cy="660" rx="150" ry="38"/><text x="850" y="667">Gérer les forfaits</text>
+    <ellipse class="usecase" cx="520" cy="780" rx="150" ry="38"/><text x="520" y="787">Paramétrer la boutique</text>
+    <ellipse class="usecase" cx="850" cy="780" rx="150" ry="38"/><text x="850" y="787">Gérer les marchands</text>
+    <ellipse class="usecase" cx="1050" cy="780" rx="110" ry="38"/><text x="1050" y="787">Journal sécurité</text>
+  </g>
+
+  <path class="link" d="M130 190 L370 180M130 205 L700 180"/>
+  <path class="link" d="M130 555 L370 300M130 570 L700 300M130 585 L370 420M130 600 L700 420M130 615 L370 540M130 630 L700 540M130 645 L370 660M130 660 L370 780"/>
+  <path class="link" d="M1358 355 L1000 660M1358 370 L1000 780M1358 385 L1160 780"/>
+  <path class="link" d="M1358 715 L1000 300M1358 730 L1000 420M1358 745 L1000 540"/>
+</svg>
