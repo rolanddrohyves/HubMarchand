@@ -205,6 +205,28 @@ test('user can add a product with catalog details and variants', function () {
     Storage::disk('public')->assertExists($product->image_path);
 });
 
+test('user receives an error when adding a product with an oversized image', function () {
+    $user = User::factory()->create();
+    Store::factory()->create(['user_id' => $user->id]);
+
+    $response = $this->actingAs($user)
+        ->from('/stocks')
+        ->followingRedirects()
+        ->post('/stocks/produits', [
+            'name' => 'Polo marchand',
+            'sku' => 'POLO-002',
+            'stock_quantity' => 10,
+            'minimum_stock' => 2,
+            'purchase_price' => 5000,
+            'unit_price' => 8500,
+            'image' => UploadedFile::fake()->image('polo.png')->size(2049),
+        ]);
+
+    $response->assertOk()
+        ->assertSee('La taille de l’image ne doit pas dépasser 2 Mo.');
+    $this->assertDatabaseMissing('products', ['sku' => 'POLO-002']);
+});
+
 test('user can add a supplier and create a purchase order', function () {
     $user = User::factory()->create();
     $store = Store::factory()->create(['user_id' => $user->id]);

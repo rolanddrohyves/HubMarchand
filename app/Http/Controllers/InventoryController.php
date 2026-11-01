@@ -71,6 +71,8 @@ class InventoryController extends Controller
             'variants.*.sku' => ['nullable', 'string', 'max:100'],
             'variants.*.stock_quantity' => ['nullable', 'integer', 'min:0'],
             'variants.*.price' => ['nullable', 'integer', 'min:0'],
+        ], [
+            'image.max' => 'La taille de l’image ne doit pas dépasser 2 Mo.',
         ]);
 
         $productLimit = $store->subscriptionPlan?->product_limit;
