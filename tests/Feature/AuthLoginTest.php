@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Store;
 use App\Models\User;
 
 test('user can login with valid credentials', function () {
@@ -51,4 +52,23 @@ test('login is rate limited after repeated failed attempts', function () {
     }
 
     $this->post('/login', $payload)->assertStatus(429);
+});
+
+test('pending merchant cannot login until an administrator validates the account', function () {
+    $user = User::factory()->create([
+        'email' => 'pending@hubmarchand.test',
+        'password' => bcrypt('secret123'),
+    ]);
+    Store::factory()->create([
+        'user_id' => $user->id,
+        'status' => 'pending',
+    ]);
+
+    $this->post('/login', [
+        'email' => $user->email,
+        'password' => 'secret123',
+    ])->assertRedirect('/')
+        ->assertSessionHasErrors('email');
+
+    $this->assertGuest();
 });

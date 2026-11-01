@@ -5,7 +5,6 @@ use App\Models\Store;
 use App\Models\SubscriptionPlan;
 use App\Models\User;
 use App\Notifications\SubscriptionExpiredNotification;
-use Illuminate\Support\Facades\Notification;
 
 test('only super admins can access the platform panel', function () {
     $user = User::factory()->create();
@@ -44,6 +43,31 @@ test('super admins can suspend a merchant and the action is audited', function (
     expect(PlatformAuditLog::query()->where('store_id', $store->id)->where('action', 'merchant.suspended')->exists())->toBeTrue();
 });
 
+test('super admins can activate a pending merchant', function () {
+    $admin = User::factory()->create(['is_super_admin' => true]);
+    $merchant = User::factory()->create([
+        'email' => 'pending@example.com',
+        'password' => bcrypt('secret123'),
+    ]);
+    $store = Store::factory()->create([
+        'user_id' => $merchant->id,
+        'status' => 'pending',
+    ]);
+
+    $this->actingAs($admin)
+        ->put(route('super-admin.merchants.toggle', $store))
+        ->assertRedirect()
+        ->assertSessionHas('status', 'Boutique réactivée.');
+
+    expect($store->fresh()->status)->toBe('active');
+
+    auth()->logout();
+    $this->post('/login', [
+        'email' => $merchant->email,
+        'password' => 'secret123',
+    ])->assertRedirect('/accueil');
+});
+
 test('super admins can create a merchant with a subscription plan', function () {
     $admin = User::factory()->create(['is_super_admin' => true]);
     $plan = SubscriptionPlan::create(['name' => 'Premium', 'monthly_price' => 15000, 'is_active' => true]);
@@ -61,6 +85,7 @@ test('super admins can create a merchant with a subscription plan', function () 
     $merchant = User::where('email', 'marchand@example.com')->firstOrFail();
     expect($merchant->is_super_admin)->toBeFalse();
     expect($merchant->store->subscription_plan_id)->toBe($plan->id);
+    expect($merchant->store->status)->toBe('pending');
 });
 
 test('super admins can view and edit a merchant', function () {
