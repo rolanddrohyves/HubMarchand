@@ -28,10 +28,18 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
-            if (! $request->user()->isSuperAdmin() && ! $request->user()->hasVerifiedEmail()) {
-                $request->user()->sendEmailVerificationNotification();
+            if (! $request->user()->isSuperAdmin()) {
+                $store = $request->user()->currentStore();
 
-                return redirect()->route('verification.notice');
+                if ($store->status === 'pending') {
+                    Auth::logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+
+                    throw ValidationException::withMessages([
+                        'email' => ['Votre compte est en attente de validation par un administrateur.'],
+                    ]);
+                }
             }
 
             if (! $request->user()->isSuperAdmin() && ($store = $request->user()->currentStore())->suspendIfSubscriptionExpired()) {

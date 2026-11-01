@@ -9,7 +9,6 @@ use App\Http\Controllers\B2bBillingController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\EcommerceController;
-use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\NotificationController;
@@ -44,9 +43,6 @@ Route::get('/health', function () {
 })->name('health');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/email/verifier', [EmailVerificationController::class, 'notice'])->name('verification.notice');
-    Route::get('/email/verifier/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware('signed')->name('verification.verify');
-    Route::post('/email/renvoyer', [EmailVerificationController::class, 'resend'])->middleware('throttle:6,1')->name('verification.send');
     Route::middleware('super-admin')->prefix('super-admin')->name('super-admin.')->group(function () {
         Route::get('/', [SuperAdminController::class, 'index'])->name('index');
         Route::get('/marchands', [SuperAdminController::class, 'merchants'])->name('merchants');
@@ -72,7 +68,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/exports/{resource}/{format}', [ExportController::class, 'download'])
         ->whereIn('format', ['pdf', 'xlsx', 'docx'])
         ->name('exports.download');
-    Route::middleware(['merchant-subscription', 'verified'])->group(function () {
+    Route::middleware('merchant-subscription')->group(function () {
         Route::get('/accueil', [AccueilController::class, 'index'])->name('accueil');
         Route::middleware('module:analytics')->group(function () {
             Route::get('/analytique', [AnalyticsController::class, 'index'])->name('analytics.index');

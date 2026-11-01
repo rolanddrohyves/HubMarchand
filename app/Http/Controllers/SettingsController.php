@@ -79,7 +79,7 @@ class SettingsController extends Controller
         ]);
         $validated['password'] = Hash::make($validated['password']);
         $validated['store_id'] = $store->id;
-        User::create($validated);
+        $member = User::create($validated);
 
         return back()->with('status', 'Membre ajouté à l’équipe.');
     }

@@ -153,7 +153,9 @@ class SuperAdminController extends Controller
             'subscription_ends_at' => ['nullable', 'date', 'after:today'],
         ]);
 
-        DB::transaction(function () use ($request, $validated): void {
+        $merchant = null;
+
+        DB::transaction(function () use ($request, $validated, &$merchant): void {
             $merchant = User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
@@ -165,6 +167,7 @@ class SuperAdminController extends Controller
                 'user_id' => $merchant->id,
                 'name' => $validated['store_name'],
                 'email' => $merchant->email,
+                'status' => 'pending',
                 'subscription_plan_id' => $validated['plan_id'] ?? null,
                 'subscription_started_at' => now(),
                 'subscription_ends_at' => $validated['subscription_ends_at'] ?? now()->addMonth(),
@@ -179,7 +182,7 @@ class SuperAdminController extends Controller
             ]);
         });
 
-        return back()->with('status', 'Compte marchand créé.');
+        return back()->with('status', 'Compte marchand créé en attente de validation.');
     }
 
     public function assignPlan(Request $request, Store $store): RedirectResponse
